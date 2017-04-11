@@ -1,0 +1,2 @@
+Image img
+string str
