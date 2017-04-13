@@ -33,18 +33,18 @@ class traffic_light:
       self.greenSemaphore = 0
 
       ## color boundaries (greyscale image)
-      self.lower = [180] # lower boundary
-      self.upper = [220] # upper boundary
+      self.lower = [210] # lower boundary
+      self.upper = [230] # upper boundary
       self.lower = np.array(self.lower, dtype = "uint8")
       self.upper = np.array(self.upper, dtype = "uint8")
 
       # rows and columns boundaries
       ## suppose you will always find the semaphore
       ## on the top right corner of the image (image will be 160x112)
-      self.imin = 10
-      self.imax = 45
-      self.jmin = 90
-      self.jmax = 145
+      self.imin = 0
+      self.imax = 25
+      self.jmin = 60
+      self.jmax = 100
       self.step = 2
 
     def callback(self,data): # runs everytime an ImageMessage is uploaded on the topic
@@ -61,16 +61,16 @@ class traffic_light:
         greyMask = cv2.bitwise_and(cvImage, cvImage, mask = mask) # brightness filtered image
 
         # wait green semaphore to restart
-        if self.redSemaphore == 1: # look for green semaphore only after finding a red one
-            for i in range(self.imin, self.imax, self.step*2):
-                for j in range(self.jmin, self.jmax, self.step*2):
-                    if greyMask[i][j] > 0: # if that pixel is bright
-                        self.redSemaphore = 0 # reset redSemaphore
-                        self.greenSemaphore = 1 # found a greenSemaphore
-        if self.greenSemaphore == 1:
-            rospy.loginfo("NO LIGHT FOUND")
-            self.controlPub.publish("GGG") # send green encoded string to traffic_light_detection	
-	    self.greenSemaphore = 0
+        #if self.redSemaphore == 1: # look for green semaphore only after finding a red one
+        #    for i in range(self.imin, self.imax, self.step*2):
+        #        for j in range(self.jmin, self.jmax, self.step*2):
+        #            if greyMask[i][j] > 0: # if that pixel is bright
+        #                self.redSemaphore = 0 # reset redSemaphore
+        #                self.greenSemaphore = 1 # found a greenSemaphore
+        #if self.greenSemaphore == 1:
+        #    rospy.loginfo("NO LIGHT FOUND")
+        #    self.controlPub.publish("GGG") # send green encoded string to traffic_light_detection	
+	#    self.greenSemaphore = 0
 
 	self.redSemaphore = 0 # reset redSemaphore each time
         for i in range(self.imin, self.imax, self.step): # look for a red semaphore
@@ -78,14 +78,14 @@ class traffic_light:
                 if greyMask[i][j] > 0: # if that pixel is bright
                     self.redSemaphore = 1 # found a redSemaphore
         if self.redSemaphore == 1:
-            #rospy.loginfo("FOUND LIGHT")
+            rospy.loginfo("FOUND LIGHT")
             self.controlPub.publish("RRR") # send red encoded string to rospibot_network
 
-        # redundant check: everytime, if no redSemaphore is found (and not even a green one)
-        # send green encoded string to rospibot_network
+        # redundant check: everytime, if no redSemaphore is found
+        # send green encoded string to topic
         if self.redSemaphore == 0:
             self.controlPub.publish("GGG")
-	    #rospy.loginfo("NO LIGHT FOUND")		
+	    rospy.loginfo("NO LIGHT FOUND")		
 	
 	cv2.rectangle(greyMask, (self.jmin,self.imin), (self.jmax,self.imax), (255), 1)	
 	self.greyPub.publish(self.bridge.cv2_to_imgmsg(greyMask)) # publish the grayscale masked image on the grey_scale_topic

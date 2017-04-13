@@ -25,7 +25,7 @@ class traffic_light:
     def __init__(self):
       self.bridge = CvBridge() # setup CVbridge to convert from ImageMessage to CVimage
       self.image_sub = rospy.Subscriber("image_topic", Image, self.callback) # subscribe to image_topic topic
-      self.imagePub = rospy.Publisher("red_mask_topic", Image, queue_size=10)	
+      self.imagePub = rospy.Publisher("red_mask_topic", Image, queue_size=1)	
       self.controlPub = rospy.Publisher("redmask_detection_topic", String, queue_size=10)
 
       # semaphore variables
@@ -33,8 +33,8 @@ class traffic_light:
       self.greenSemaphore = 0
 
       ## color boundaries (bgr format) -> RED
-      self.Rlower = [70, 70, 150] # lower boundaries
-      self.Rupper = [110, 110, 200] # upper boundaries
+      self.Rlower = [50, 50, 160] # lower boundaries
+      self.Rupper = [120, 120, 230] # upper boundaries
       self.Rlower = np.array(self.Rlower, dtype = "uint8")
       self.Rupper = np.array(self.Rupper, dtype = "uint8")
 
@@ -47,10 +47,10 @@ class traffic_light:
       # rows and columns boundaries
       ## suppose you will always find the semaphore
       ## on the top right corner of the image (image will be 160x112)
-      self.imin = 15
-      self.imax = 45
-      self.jmin = 80
-      self.jmax = 150
+      self.imin = 0
+      self.imax = 25
+      self.jmin = 60
+      self.jmax = 100
       self.step = 1
 	
     def callback(self,data): # runs everytime an ImageMessage is uploaded on the topic
