@@ -33,7 +33,7 @@ class traffic_light:
       self.greenSemaphore = 0
 
       ## color boundaries (bgr format) -> RED
-      self.Rlower = [50, 50, 160] # lower boundaries
+      self.Rlower = [40, 40, 160] # lower boundaries
       self.Rupper = [120, 120, 230] # upper boundaries
       self.Rlower = np.array(self.Rlower, dtype = "uint8")
       self.Rupper = np.array(self.Rupper, dtype = "uint8")

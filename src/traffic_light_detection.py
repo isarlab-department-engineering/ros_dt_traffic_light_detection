@@ -23,7 +23,7 @@ class traffic_light_detection:
 	self.redMskSemaphore = 1
 	self.greyScaleSemaphore = 1
     
-	self.controlPub = rospy.Publisher("rospibot_network", String, queue_size=10)
+	self.controlPub = rospy.Publisher("traffic_light_detection", String, queue_size=10)
 	rospy.Subscriber("redmask_detection_topic", String, self.callback0) # subscribe to redmask_detection topic
         rospy.Subscriber("greyscale_detection_topic", String, self.callback1) # subscribe to greyscale_detection topic
 	rospy.loginfo("Listening on two different topics")
@@ -61,7 +61,7 @@ class traffic_light_detection:
             self.controlPub.publish("GGG")
 
 def main(args):
-    rospi_net = traffic_light_detection()
+    tl_det = traffic_light_detection()
     rospy.init_node('trafficlight_detection', anonymous=True) # create a trafficlight_detection node
     rospy.loginfo("started")
     try:
