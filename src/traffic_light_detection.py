@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 
 #
-# This script allows control over a raspberry pi based robot
-# reads strings from rospibot_network topic and decodes it
-# to control the motors using Adafruit libraries
+# This script puts together the informations from
+# redscale_detection and greyscale_detection and 
+# communicates the effective presence of the 
+# traffic light (when both the detections found it)
 #
 # script by Andrea Fioroni - andrifiore@gmail.com
-# GitHub repo: https://github.com/tanicar/rospibot_project
+# GitHub repo: https://github.com/isarlab-department-engineering/ros-traffic-light-detection
 #
 
 import rospy
