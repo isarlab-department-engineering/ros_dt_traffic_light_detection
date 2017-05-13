@@ -4,10 +4,10 @@
 # This script reads images from a ROS topic,
 # converts them and elaborates to detect light peaks 
 # from greyscale image, eventually sending 
-# encoded strings to the rospibot_network topic
+# encoded strings to the grey_scale_topic topic
 #
 # script by Andrea Fioroni - andrifiore@gmail.com
-# GitHub repo: https://github.com/tanicar/rospibot_project
+# GitHub repo: https://github.com/isarlab-department-engineering/ros-traffic-light-detection
 #
 
 from __future__ import print_function
