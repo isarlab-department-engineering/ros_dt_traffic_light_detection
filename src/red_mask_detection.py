@@ -4,10 +4,10 @@
 # This script reads images from a ROS topic,
 # converts them and elaborates to detect red and 
 # green LEDs (semaphore), eventually sending 
-# encoded strings to the rospibot_network topic
+# encoded strings to the redmask_detection_topic topic
 #
 # script by Andrea Fioroni - andrifiore@gmail.com
-# GitHub repo: https://github.com/tanicar/rospibot_project
+# GitHub repo: https://github.com/isarlab-department-engineering/ros-traffic-light-detection
 #
 
 from __future__ import print_function
