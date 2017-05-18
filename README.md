@@ -23,5 +23,10 @@ controls a Arduino Nano semaphore, allowing to light up the LED and swap between
 
 
 
-Launch:
-- use "roslaunch traffic_light rospibot.launch" to launch all the Nodes needed for the traffic light detection
+Launch: "roslaunch traffic_light rospibot.launch" will launch:
+- rospibot_network.py (from ros-joy-controller package)
+- traffic_light_detection.py
+- red_mask_detection.py
+- grey_scale_detection.py
+- talker.py (from ros-pi-camera-interface package)
+- motor_hat_node (from motor_hat package)
