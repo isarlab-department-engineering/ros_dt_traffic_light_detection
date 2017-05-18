@@ -23,7 +23,7 @@ controls a Arduino Nano semaphore, allowing to light up the LED and swap between
 
 
 
-Launch: "roslaunch traffic_light rospibot.launch" will launch:
+Launch: "roslaunch traffic_light rospibot.launch" on the robot will launch:
 - rospibot_network.py (from ros-joy-controller package)
 - traffic_light_detection.py
 - red_mask_detection.py
