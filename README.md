@@ -20,3 +20,8 @@ Arduino Code:
 
 - legoSemaphore.ino:
 controls a Arduino Nano semaphore, allowing to light up the LED and swap between red and green
+
+
+
+Launch:
+- use "roslaunch traffic_light rospibot.launch" to launch all the Nodes needed for the traffic light detection
