@@ -1,0 +1,13 @@
+<launch>
+
+  <node name="rospibot_network" pkg="rospibot_network" type="rospibot_network.py" />
+
+  <node name="traffic_light_detection" pkg="traffic_light" type="traffic_light_detection.py" />
+  <node name="red_mask_detection" pkg="traffic_light" type="red_mask_detection.py" />
+  <node name="grey_scale_detection" pkg="traffic_light" type="grey_scale_detection.py" />
+
+  <node name="image_converter_talker" pkg="image_converter" type="talker.py" />
+
+  <node name="motor_hat" pkg="motor_hat" type="motor_hat_node" />
+
+</launch>
