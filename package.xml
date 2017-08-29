@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>traffic_light</name>
+  <name>traffic_light_detection</name>
   <version>0.0.0</version>
   <description>The traffic_light package</description>
 
