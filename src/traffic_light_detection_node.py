@@ -40,13 +40,13 @@ class traffic_light_detection:
 
 	#self.controlPub = rospy.Publisher("traffic_light_detection", String, queue_size=10)
 	rospy.Subscriber("redmask_detection_topic", String, self.callback0) # subscribe to redmask_detection topic
-    rospy.Subscriber("greyscale_detection_topic", String, self.callback1) # subscribe to greyscale_detection topic
+        rospy.Subscriber("greyscale_detection_topic", String, self.callback1) # subscribe to greyscale_detection topic
 	rospy.loginfo("Listening on two different topics")
 
-    rospy.wait_for_service('semaphore')
-    rospy.loginfo("SemaphoreService is ON")
-    self.semaphoreMessage.linear.x = 0
-    self.semaphore_service(self.semaphoreMessage)
+        rospy.wait_for_service('semaphore')
+        rospy.loginfo("SemaphoreService is ON")
+        semaphoreMessage.linear.x = 0
+        semaphore_service(semaphoreMessage)
 
     def callback0(self,data): # runs whenever any data is published on the redmask_detection topic
         rospy.loginfo(rospy.get_caller_id() + " Getting REDMASK Info: %s", data.data)
@@ -59,20 +59,20 @@ class traffic_light_detection:
 
 	if self.redMaskSemaphore == 1:
 	    if self.greyScaleSemaphore == 1:
-            # Both detected a RED trafficlight
-		    #self.controlPub.publish("RRR")
-            if self.lastStatus == False : # only communicate the RED trafficlight when there was no detection
-                self.semaphoreMessage.linear.x = 1
-                self.semaphore_service(self.semaphoreMessage)
-                self.lastStatus = True
-                rospy.loginfo("FOUND RED")
+           	 # Both detected a RED trafficlight
+		 #self.controlPub.publish("RRR")
+            	 if self.lastStatus == False : # only communicate the RED trafficlight when there was no detection
+                    self.semaphoreMessage.linear.x = 1
+                    self.semaphore_service(self.semaphoreMessage)
+                    self.lastStatus = True
+                    rospy.loginfo("FOUND RED")
 	else:
-        if self.lastStatus == True :
-            self.semaphoreMessage.linear.x = 0
-            self.semaphore_service(self.semaphoreMessage)
-            self.lastStatus = False
-            rospy.loginfo("RED IS GONE")
-	    #self.controlPub.publish("GGG")
+            if self.lastStatus == True :
+                self.semaphoreMessage.linear.x = 0
+                self.semaphore_service(self.semaphoreMessage)
+                self.lastStatus = False
+                rospy.loginfo("RED IS GONE")
+	        #self.controlPub.publish("GGG")
 
     def callback1(self,data): # runs whenever any data is published on the greyscale_detection topic
         rospy.loginfo(rospy.get_caller_id() + " Getting GREYSCALE Info: %s", data.data)
@@ -93,12 +93,12 @@ class traffic_light_detection:
                     self.lastStatus = True
                     rospy.loginfo("FOUND RED")
 	else:
-        if self.lastStatus == True :
-            self.semaphoreMessage.linear.x = 0
-            self.semaphore_service(self.semaphoreMessage)
-            self.lastStatus = False
-            rospy.loginfo("RED IS GONE")
-        #self.controlPub.publish("GGG")
+            if self.lastStatus == True :
+                self.semaphoreMessage.linear.x = 0
+                self.semaphore_service(self.semaphoreMessage)
+                self.lastStatus = False
+                rospy.loginfo("RED IS GONE")
+      		#self.controlPub.publish("GGG")
 
 def main(args):
     tl_det = traffic_light_detection()
