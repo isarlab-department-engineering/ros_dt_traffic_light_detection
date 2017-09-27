@@ -18,17 +18,6 @@ from geometry_msgs.msg import Twist
 import time
 import atexit
 
-# service variable
-semaphore_service = rospy.ServiceProxy('semaphore',SemaphoreService)
-semaphoreMessage = Twist()
-semaphoreMessage.linear.x=0
-semaphoreMessage.linear.y=0
-semaphoreMessage.linear.z=0
-semaphoreMessage.angular.x=0
-semaphoreMessage.angular.y=0
-semaphoreMessage.angular.z=0
-
-lastStatus = False # False = no RED trafficlight, True = found a RED trafficlight
 
 class traffic_light_detection:
 
@@ -37,6 +26,17 @@ class traffic_light_detection:
 	# semaphore variables
 	self.redMskSemaphore = 1
 	self.greyScaleSemaphore = 1
+	self.lastStatus = False	
+		
+	# service variable
+	self.semaphore_service = rospy.ServiceProxy('semaphore',SemaphoreService)
+	self.semaphoreMessage = Twist()
+	self.semaphoreMessage.linear.x=0
+	self.semaphoreMessage.linear.y=0
+	self.semaphoreMessage.linear.z=0
+	self.semaphoreMessage.angular.x=0
+	self.semaphoreMessage.angular.y=0
+	self.semaphoreMessage.angular.z=0
 
 	#self.controlPub = rospy.Publisher("traffic_light_detection", String, queue_size=10)
 	rospy.Subscriber("redmask_detection_topic", String, self.callback0) # subscribe to redmask_detection topic
@@ -45,8 +45,8 @@ class traffic_light_detection:
 
         rospy.wait_for_service('semaphore')
         rospy.loginfo("SemaphoreService is ON")
-        semaphoreMessage.linear.x = 0
-        semaphore_service(semaphoreMessage)
+        self.semaphoreMessage.linear.x = 0
+        self.semaphore_service(self.semaphoreMessage)
 
     def callback0(self,data): # runs whenever any data is published on the redmask_detection topic
         rospy.loginfo(rospy.get_caller_id() + " Getting REDMASK Info: %s", data.data)
