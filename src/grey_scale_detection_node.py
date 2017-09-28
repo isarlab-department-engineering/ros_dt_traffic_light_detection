@@ -43,8 +43,8 @@ class traffic_light:
       ## on the top right corner of the image (image will be 160x112)
       self.imin = 0
       self.imax = 25
-      self.jmin = 60
-      self.jmax = 100
+      self.jmin = 100
+      self.jmax = 155
       self.step = 2
 
     def callback(self,data): # runs everytime an ImageMessage is uploaded on the topic
